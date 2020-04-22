@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Metodo 1</title>
 </head>
 <body>
 
-    <canvas id="line-chart" data-database=""></canvas>
+    <canvas id="line-chart"></canvas>
 
-
+    <?php // ----- JAVASCRIPT ----- ?>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-    
+
     <script>
         $.ajax({
             url: 'server.php',
@@ -45,13 +45,7 @@
             });
         }
     </script>
-
+    <?php // ----- JAVASCRIPT ----- ?>
 
 </body>
 </html>
-
-<?php
-
-
-
-?>
