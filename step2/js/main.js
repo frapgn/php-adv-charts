@@ -4,7 +4,8 @@ $.ajax({
     success: function(fatturato) {
         var type = fatturato[0].type;
         var fatt = fatturato[0].data;
-        buildLineChart(type, fatt);
+        var color = getRandomColor();
+        buildLineChart(type, fatt, color);
     },
     error: function() {
 
@@ -27,9 +28,11 @@ $.ajax({
         }
         var colors = [];
 
-        //iterare n volte dove n = lunghezza dell'oggetto
-        //colors.push(getRandomColor);
-        
+        for (var i = 0; i < names.length; i++) {
+            colors.push(getRandomColor());
+        }
+        console.log(colors);
+
         buildPieChart(type, fatt, names, colors);
     },
     error: function() {
@@ -37,7 +40,9 @@ $.ajax({
     }
 });
 
-function buildLineChart(type, data) {
+var lol = "#"+((1<<24)*Math.random()|0).toString(16); // colore random da record
+
+function buildLineChart(type, data, bgColor) {
     var ctx = $('#line-chart');
     var lineChart = new Chart(ctx, {
         // The type of chart we want to create
@@ -48,7 +53,7 @@ function buildLineChart(type, data) {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             datasets: [{
                 label: 'Boh',
-                backgroundColor: 'rgb(255, 99, 132)',
+                backgroundColor: bgColor,
                 borderColor: 'rgb(255, 99, 132)',
                 data: data
             }]
