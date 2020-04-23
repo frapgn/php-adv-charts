@@ -8,7 +8,30 @@
 </head>
 <body>
 
-    <canvas id="line-chart"></canvas>
+    <style>
+
+        .clearfix:after {
+            content: '';
+            display: table:
+            clear: both;
+        }
+
+        .container div {
+            float: left;
+            width: 500px;
+        }
+
+    </style>
+
+
+    <div class="container clearfix">
+        <div>
+            <canvas id="line-chart"></canvas>
+        </div>
+        <div>
+            <canvas id="pie-chart"></canvas>
+        </div>
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
