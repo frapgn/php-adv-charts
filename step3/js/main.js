@@ -1,6 +1,9 @@
 
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
+var querystring = location.search;
+console.log(querystring);
+
 $.ajax({
     url: 'fatturato/',
     method: 'GET',
@@ -16,7 +19,7 @@ $.ajax({
 });
 
 $.ajax({
-    url: 'fatturato_by_agent/',
+    url: 'fatturato_by_agent/' + querystring,
     method: 'GET',
     success: function(fatturato_by_agent) {
         var type = fatturato_by_agent.type;
@@ -61,9 +64,10 @@ $.ajax({
 });
 
 $.ajax({
-    url: 'team_efficiency/',
+    url: 'team_efficiency/' + querystring,
     method: 'GET',
     success: function(team_efficiency) {
+        console.log('team_efficiency: ' + team_efficiency);
         var type = team_efficiency.type;
 
         var bgColor = 'rgba(0,0,0,0.1)';
@@ -87,6 +91,14 @@ $.ajax({
 
     }
 });
+
+// $.ajax({
+//     url: 'permissions_filter.php' + querystring,
+//     method: 'GET',
+//     success: function(data) {
+//         console.log(data);
+//     }
+// });
 
 var lol = "#"+((1<<24)*Math.random()|0).toString(16); // colore random da record
 
