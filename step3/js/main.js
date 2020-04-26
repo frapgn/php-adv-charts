@@ -2,110 +2,121 @@
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 var querystring = window.location.search;
-console.log(querystring);
+// console.log(querystring);
 var urlParams = new URLSearchParams(querystring);
 
 var accessLevel = urlParams.get('level');
-console.log(accessLevel);
+// console.log(accessLevel);
 
-$.ajax({
-    url: 'fatturato/',
-    method: 'GET',
-    data: {
-        level: accessLevel
-    },
-    success: function(fatturato) {
-        var type = fatturato.type;
-        var fatt = fatturato.data;
-        var color = getRandomColor();
-        buildLineChart(type, months, fatt, 'rgba(0,0,0,0.1)', color);
-    },
-    error: function() {
+if (querystring != '') {
+    $.ajax({
+        url: 'fatturato/',
+        method: 'GET',
+        data: {
+            level: accessLevel
+        },
+        success: function(fatturato) {
+            var type = fatturato.type;
+            var fatt = fatturato.data;
+            var color = getRandomColor();
+            buildLineChart(type, months, fatt, 'rgba(0,0,0,0.1)', color);
+        },
+        error: function() {
 
-    }
-});
-
-$.ajax({
-    url: 'fatturato_by_agent/',
-    method: 'GET',
-    data: {
-        level: accessLevel
-    },
-    success: function(fatturato_by_agent) {
-        var type = fatturato_by_agent.type;
-        var fatt4Agent = fatturato_by_agent.data;
-
-        var names = [];
-        var fatt = [];
-        for (var name in fatt4Agent) {
-            names.push(name);
-            fatt.push(fatt4Agent[name]);
         }
-        // console.log(names, fatt);
-        var colors = [];
+    });
+}
 
-        for (var i = 0; i < names.length; i++) {
-            colors.push(getRandomColor());
-        }
+if (querystring != '') {
+    $.ajax({
+        url: 'fatturato_by_agent/',
+        method: 'GET',
+        data: {
+            level: accessLevel
+        },
+        success: function(fatturato_by_agent) {
+            var type = fatturato_by_agent.type;
+            var fatt4Agent = fatturato_by_agent.data;
 
-        buildPieChart($('#pie-chart'), type, names, fatt, colors);
-    },
-    error: function() {
+            var names = [];
+            var fatt = [];
+            for (var name in fatt4Agent) {
+                names.push(name);
+                fatt.push(fatt4Agent[name]);
+            }
+            // console.log(names, fatt);
+            var colors = [];
 
-    }
-});
-
-$.ajax({
-    url: 'fatturato_by_agent_php/',
-    method: 'GET',
-    data: {
-        level: accessLevel
-    },
-    success: function(fatturato_by_agent_php) {
-
-        var colors = [];
-
-        for (var i = 0; i < 10; i++) {
-            colors.push(getRandomColor());
-        }
-
-        buildPieChart($('#pie-chart-php'), fatturato_by_agent_php.tipo, fatturato_by_agent_php.nomi_agenti, fatturato_by_agent_php.fatturato_agenti, colors);
-    },
-    error: function() {
-
-    }
-});
-
-$.ajax({
-    url: 'team_efficiency/',
-    method: 'GET',
-    data: {
-        level: accessLevel
-    },
-    success: function(team_efficiency) {
-        var type = team_efficiency.type;
-
-        var bgColor = 'rgba(0,0,0,0.1)';
-        var datasets = [];
-
-        for (var teamName in team_efficiency.data) {
-            var object = {
-                label: teamName,
-                backgroundColor: bgColor,
-                borderColor: getRandomColor(),
-                data: team_efficiency.data[teamName]
+            for (var i = 0; i < names.length; i++) {
+                colors.push(getRandomColor());
             }
 
-            datasets.push(object);
+            buildPieChart($('#pie-chart'), type, names, fatt, colors);
+        },
+        error: function() {
+
         }
-        // console.log(datasets);
+    });
+}
 
-        buildTeamsLineChart(type, months, datasets);
-    },
-    error: function() {
 
-    }
-});
+if (querystring != '') {
+    $.ajax({
+        url: 'fatturato_by_agent_php/',
+        method: 'GET',
+        data: {
+            level: accessLevel
+        },
+        success: function(fatturato_by_agent_php) {
+
+            var colors = [];
+
+            for (var i = 0; i < 10; i++) {
+                colors.push(getRandomColor());
+            }
+
+            buildPieChart($('#pie-chart-php'), fatturato_by_agent_php.tipo, fatturato_by_agent_php.nomi_agenti, fatturato_by_agent_php.fatturato_agenti, colors);
+        },
+        error: function() {
+
+        }
+    });
+}
+
+
+if (querystring != '') {
+    $.ajax({
+        url: 'team_efficiency/',
+        method: 'GET',
+        data: {
+            level: accessLevel
+        },
+        success: function(team_efficiency) {
+            var type = team_efficiency.type;
+
+            var bgColor = 'rgba(0,0,0,0.1)';
+            var datasets = [];
+
+            for (var teamName in team_efficiency.data) {
+                var object = {
+                    label: teamName,
+                    backgroundColor: bgColor,
+                    borderColor: getRandomColor(),
+                    data: team_efficiency.data[teamName]
+                }
+
+                datasets.push(object);
+            }
+            // console.log(datasets);
+
+            buildTeamsLineChart(type, months, datasets);
+        },
+        error: function() {
+
+        }
+    });
+}
+
 
 // $.ajax({
 //     url: 'permissions_filter.php' + querystring,
