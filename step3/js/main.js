@@ -1,12 +1,19 @@
 
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-var querystring = location.search;
+var querystring = window.location.search;
 console.log(querystring);
+var urlParams = new URLSearchParams(querystring);
+
+var accessLevel = urlParams.get('level');
+console.log(accessLevel);
 
 $.ajax({
     url: 'fatturato/',
     method: 'GET',
+    data: {
+        level: accessLevel
+    },
     success: function(fatturato) {
         var type = fatturato.type;
         var fatt = fatturato.data;
@@ -19,8 +26,11 @@ $.ajax({
 });
 
 $.ajax({
-    url: 'fatturato_by_agent/' + querystring,
+    url: 'fatturato_by_agent/',
     method: 'GET',
+    data: {
+        level: accessLevel
+    },
     success: function(fatturato_by_agent) {
         var type = fatturato_by_agent.type;
         var fatt4Agent = fatturato_by_agent.data;
@@ -48,6 +58,9 @@ $.ajax({
 $.ajax({
     url: 'fatturato_by_agent_php/',
     method: 'GET',
+    data: {
+        level: accessLevel
+    },
     success: function(fatturato_by_agent_php) {
 
         var colors = [];
@@ -64,10 +77,12 @@ $.ajax({
 });
 
 $.ajax({
-    url: 'team_efficiency/' + querystring,
+    url: 'team_efficiency/',
     method: 'GET',
+    data: {
+        level: accessLevel
+    },
     success: function(team_efficiency) {
-        console.log('team_efficiency: ' + team_efficiency);
         var type = team_efficiency.type;
 
         var bgColor = 'rgba(0,0,0,0.1)';
@@ -83,7 +98,7 @@ $.ajax({
 
             datasets.push(object);
         }
-        console.log(datasets);
+        // console.log(datasets);
 
         buildTeamsLineChart(type, months, datasets);
     },

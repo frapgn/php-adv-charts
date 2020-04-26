@@ -1,6 +1,6 @@
 <?php
-    include '../data.php';
-    $fatturato_by_agent = $graphs['fatturato_by_agent'];
+    include '../permissions_filter.php';
+    $fatturato_by_agent = $filtered['fatturato_by_agent'];
     header('Content-Type: application/json');
 
     $processed_data = [];
@@ -10,6 +10,6 @@
         $processed_data['nomi_agenti'][] = $nomi;
         $processed_data['fatturato_agenti'][] = $fatturato;
     }
-    
+
     echo json_encode($processed_data);
 ?>
