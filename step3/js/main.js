@@ -1,3 +1,7 @@
+// Per visualizzare i risultati inserire una delle seguenti query-string:
+// ?level=employee
+// ?level=employee
+// ?level=clevel
 
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
